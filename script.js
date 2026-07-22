@@ -62,7 +62,7 @@ function atual_data(quantidade){
 
 function count_seconds(seconds, div){
     return new Promise((resolve) => {
-        const sound = new Audio('Sheets/Sound/Tick.mp3');
+        const sound = new Audio('src/Sheets/Sound/Tick.mp3');
         let count = 0;
         const element = document.createElement("h1");
         element.className = "contador_segundos"
@@ -82,7 +82,12 @@ function count_seconds(seconds, div){
 }
 
 function print_horarios(div){
-    const array_horarios = atual_data(12)
+    const day = ()=>{
+        const day = document.getElementById("check-day")
+        const array_day = (day.checked == true) ? atual_data(11) : atual_data(12)
+        return array_day
+    }
+    const array_horarios = day()
     const ul = div.querySelector(".horario_quadro")
     const horarios_tratados = array_horarios.map(date => {
         return date.toTimeString().split(" ")[0].split(":").slice(0, 2).join(":")
