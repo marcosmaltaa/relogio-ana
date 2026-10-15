@@ -135,3 +135,7 @@ button{
     cursor: pointer;
     margin-top: 50px;
 }
+
+.horario_quadro li.riscado {
+    text-decoration: line-through;
+}

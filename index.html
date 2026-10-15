@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Relogio da Banana</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body>
 
@@ -18,11 +19,11 @@
         </nav>
     </header>
 
-    <main>
-        <div class = "escolha_dia_slider" id = "dia_slider">
+    <main id = "main-local">
+        <div class = "escolha_dia_slider" id = "dia_slider" v-show="hour.length === 0">
             <p>Dia 1</p>
             <label class="switch">
-                <input type="checkbox" id="check-day">
+                <input type="checkbox" id="check-day" v-model="day">
                 <span class="slider"></span>
             </label>
             <p>Dia 2</p>
@@ -30,20 +31,24 @@
 
         <div class = "titulo"></div>
         <div class="contagem">
+            <h1 v-if="count > 0">{{count}}</h1>
             <ul class="horario_quadro">
-
+                <li v-for="(horario, index) in hour" :key="index"
+                    :class="{ riscado: passou(horario) }">
+                    {{ horario.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) }}
+                </li>
             </ul>
         </div>
 
-        <div class="selecao_segundos_start">
+        <div v-show="hour.length === 0" class="selecao_segundos_start">
             <h1>Quantos segundos para começar?</h1>
-            <input type="text" value="5" name="sec_to_start" id="sec_to_start">
+            <input type="number" value=5 name="sec_to_start" id="sec_to_start" v-model="secToStart">
         </div>
 
-        <button id="start" onclick="start_clock()">Começar</button>
+        <button id="start" @click="count_seconds">Começar</button>
     </main>
 
-    <script src="script.js"></script>
+    <script src="script2.js"></script>
 </body>
 
 </html>
